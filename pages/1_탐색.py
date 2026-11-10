@@ -1,6 +1,5 @@
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
@@ -29,7 +28,7 @@ def mean_diff_table(df: pd.DataFrame) -> pd.DataFrame:
     m1, m0 = fail.mean(), ok.mean()
     v1, v0 = fail.var(), ok.var()
 
-    pooled_sd = np.sqrt(((n1 - 1) * v1 + (n0 - 1) * v0) / (n1 + n0 - 2))
+    pooled_sd = (((n1 - 1) * v1 + (n0 - 1) * v0) / (n1 + n0 - 2)) ** 0.5
     d = (m1 - m0) / pooled_sd
 
     table = pd.DataFrame(
@@ -67,7 +66,7 @@ def correlation_table(df: pd.DataFrame) -> pd.DataFrame:
     )
     table = table[table["상관계수"].notna()].copy()
     table["절댓값"] = table["상관계수"].abs()
-    table["신뢰"] = np.where(table["값 있는 불량 수"] < 20, "신뢰 낮음", "")
+    table["신뢰"] = (table["값 있는 불량 수"] < 20).map({True: "신뢰 낮음", False: ""})
     return table.sort_values("절댓값", ascending=False).reset_index(drop=True)
 
 
