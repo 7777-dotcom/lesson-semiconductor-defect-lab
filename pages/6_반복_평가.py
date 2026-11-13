@@ -184,7 +184,7 @@ st.dataframe(
 if len(win_counts) > 1:
     order_text = "반복마다 F1이 가장 높은 모델이 바뀌었어요."
 else:
-    order_text = f"반복마다 F1이 가장 높은 모델이 {win_counts.index[0]}으로 같았어요."
+    order_text = f"반복마다 F1이 가장 높은 모델은 {win_counts.index[0]} 하나로 같았어요."
 wins_text = ", ".join(f"{name} {int(count)}번" for name, count in win_counts.items())
 st.write(f"F1 1등은 반복 {n_repeats}번 중 {wins_text}이에요. {order_text}")
 
@@ -209,5 +209,5 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.caption(
     f"점 하나가 반복 한 번의 F1이에요. 불량이 {n_fail:,}개뿐이라 나누는 방식에 따라 점수가 달라져요. "
-    "같은 데이터를 다르게 나눈 것이라, 새 제품에서의 실제 흔들림은 이보다 클 수 있어요."
+    "같은 데이터를 다르게 나눈 것이라 새 제품에서의 실제 흔들림은 더 클 수 있어요."
 )
